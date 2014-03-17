@@ -1,4 +1,6 @@
-require_relative('../lib/pacman')
+$LOAD_PATH.unshift(File.expand_path('../lib',__FILE__))
+require 'pacman'
+
 game = Pacman.new
 
-puts ".....#{game.pacman_state}....."
+puts game.game_board

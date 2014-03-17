@@ -7,4 +7,11 @@ describe 'Pacman CLI' do
     game = Pacman.new
     expect(game.pacman_state).to eq('V')
   end
+
+  it 'shows pacman\'s direction based on input' do
+    game = Pacman.new
+    game.move("left")
+    expect(game.pacman_state).to eq ">"
+
+  end
 end
