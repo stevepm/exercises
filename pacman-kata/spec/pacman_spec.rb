@@ -24,9 +24,11 @@ describe 'Pacman CLI' do
   end
 
   it 'shows pacman moving to different positions in the array' do
-    pending
     game = Pacman.new
+    game.move("left")
+    expect(game.pacman_location).to eq 4
 
-
+    game.move("right")
+    expect(game.pacman_location).to eq 5
   end
 end
