@@ -3,4 +3,4 @@ require 'pacman'
 
 game = Pacman.new
 
-puts game.game_board
+print game.game_board

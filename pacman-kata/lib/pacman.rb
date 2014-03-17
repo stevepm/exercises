@@ -10,8 +10,12 @@ class Pacman
   end
 
   def move(direction)
-    if direction == "left"
-      @pacman_state = '>'
-    end
+    case direction
+      when 'left'
+        @pacman_state = '>'
+      when 'right'
+        @pacman_state = '<'
+      end
+
   end
 end
