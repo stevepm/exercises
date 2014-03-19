@@ -20,24 +20,6 @@ describe 'Pacman CLI' do
     expect(game.pacman_state).to eq "<"
   end
 
-  it 'should return pacman\'s index in the game board' do
-    pending
-    game = Pacman.new
-    game.run
-    expect(game.pacman_location).to eq 5
-  end
-
-  it 'shows pacman moving to different positions in the array' do
-    pending
-    game = Pacman.new
-    game.run
-    game.move("left")
-    expect(game.pacman_location).to eq 4
-
-    game.move("right")
-    expect(game.pacman_location).to eq 5
-  end
-
   it 'initializes with a 10 by 10 game board populated with pacman and food' do
     game = Pacman.new
     expect(game.run).to eq [['.','.','.','.','.','.','.','.','.','.'],
