@@ -3,10 +3,18 @@ require 'pacman'
 require_relative('../bin/pacman_cli')
 
 describe 'Pacman CLI' do
-  it 'shows initial state of pacman on a grid filled with dots' do
+  it 'initializes with a 10 by 10 game board populated with pacman and food' do
     game = Pacman.new
-    game.run
-    expect(game.game_board.flatten.include?('V')).to eq true
+    expect(game.run).to eq [['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','V','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],
+                            ['.','.','.','.','.','.','.','.','.','.'],]
   end
 
   it 'changes pacman\'s state based on input' do
@@ -26,17 +34,29 @@ describe 'Pacman CLI' do
     expect(game.pacman_state).to eq "A"
   end
 
-  it 'initializes with a 10 by 10 game board populated with pacman and food' do
+  it 'moves pacman to a new location based on input' do
     game = Pacman.new
-    expect(game.run).to eq [['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','V','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],
-                            ['.','.','.','.','.','.','.','.','.','.'],]
+    game.run
+
+    expect(game.find_pacman_row).to eq(7)
+    expect(game.find_pacman_column).to eq(5)
+
+    game.move("left")
+    expect(game.find_pacman_row).to eq 7
+    expect(game.find_pacman_column).to eq 4
+
+    game.move("right")
+    expect(game.find_pacman_row).to eq 7
+    expect(game.find_pacman_column).to eq 5
+
+    game.move("up")
+    expect(game.find_pacman_row).to eq 6
+    expect(game.find_pacman_column).to eq 5
+
+    game.move("down")
+    expect(game.find_pacman_row).to eq 7
+    expect(game.find_pacman_column).to eq 5
   end
+
+
 end

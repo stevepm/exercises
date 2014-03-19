@@ -1,44 +1,41 @@
 class Pacman
   attr_accessor :pacman_state, :game_board, :pacman_location
-  PACMAN_STARTING_WIDTH = 5
-  PACMAN_STARTING_HEIGHT = 7
+  PACMAN_STARTING_COLUMN = 5
+  PACMAN_STARTING_ROW = 7
   GAME_WIDTH = 10
   GAME_HEIGHT = 10
   def initialize
     @pacman_state = 'V'
     @game_board = []
-    @pacman_location = []
+    @pacman_location = Array.new
     @food = '.'
   end
 
   def move(direction)
-    pacman_direction = self.pacman_do(direction)
-    case pacman_direction
-      when '>'
-        self.position(direction)
-      when '<'
-        self.position(direction)
-      end
+    self.pacman_do(direction)
   end
 
   def run
-    self.game_state
-    @game_board[PACMAN_STARTING_HEIGHT][PACMAN_STARTING_WIDTH] = @pacman_state
+    self.create_board
+    @game_board[PACMAN_STARTING_ROW][PACMAN_STARTING_COLUMN] = @pacman_state
     @game_board
   end
 
   def pacman_do(command)
     case command
       when 'left'
+        @game_board[self.find_pacman_row][self.find_pacman_column - 1] = '>'
         @pacman_state = '>'
       when 'right'
+        @game_board[self.find_pacman_row][self.find_pacman_column + 1] = '<'
         @pacman_state = '<'
       when 'up'
+        @game_board[self.find_pacman_row - 1][self.find_pacman_column] = 'V'
         @pacman_state = 'V'
       when 'down'
+        @game_board[self.find_pacman_row + 1][self.find_pacman_column] = 'A'
         @pacman_state = 'A'
     end
-    @pacman_state
   end
   #
   #def food_state
@@ -53,7 +50,7 @@ class Pacman
   #
   #end
 
-  def game_state
+  def create_board
     @game_board = []
     GAME_HEIGHT.times do
       line_array = []
@@ -65,38 +62,46 @@ class Pacman
     @game_board
   end
 
+  def print_board
+    @game_board.each do |row|
+      print row.join(' ')
+      print "\n"
+    end
+  end
+
   def position(direction)
-    #@game_board[@pacman_location] = @pacman_state
     if direction == 'left'
-      @game_board[find_pacman_column][find_pacman_row + 1] = '.'
+      @game_board[self.find_pacman_column][self.find_pacman_row]
     elsif direction == 'right'
-      @game_board[find_pacman_column][find_pacman_row - 1] = '.'
+      @game_board[self.find_pacman_column][self.find_pacman_row]
     end
   end
 
   def find_pacman_row
-    row_counter = 0
-    holds_row = 0
-    @game_board.any? do |row|
+    @game_board.each_with_index do |row, index|
       if row.include?(@pacman_state)
-        holds_row = row_counter
+        return index
       end
-      row_counter += 1
     end
-    holds_row
   end
 
   def find_pacman_column
     holds_column = 0
-    @game_board.any? do |row|
+    @game_board.each do |row|
       if row.include?(@pacman_state)
-        holds_column = row.index(@pacman_state)
+        row.each_with_index do |column, index|
+          if column == @pacman_state
+            holds_column = index
+            break
+          end
+        end
       end
     end
     holds_column
   end
 
-  def find_pacman_location
-    @pacman_location = [self.find_pacman_column][self.find_pacman_row]
-  end
 end
+
+# go through each row
+# if in the row, go through each_with_index element of row
+# when we find element, return index
