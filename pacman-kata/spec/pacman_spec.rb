@@ -9,7 +9,7 @@ describe 'Pacman CLI' do
     expect(game.game_board.flatten.include?('V')).to eq true
   end
 
-  it 'shows pacman\'s direction based on input' do
+  it 'changes pacman\'s state based on input' do
     game = Pacman.new
     game.run
 
