@@ -16,12 +16,8 @@ class Pacman
     case pacman_direction
       when '>'
         self.position(direction)
-        #@pacman_location -= 1
-        #self.position('left')
-      when 'right'
+      when '<'
         self.position(direction)
-        #@pacman_location += 1
-        #self.position('right')
       end
   end
 
@@ -37,6 +33,10 @@ class Pacman
         @pacman_state = '>'
       when 'right'
         @pacman_state = '<'
+      when 'up'
+        @pacman_state = 'V'
+      when 'down'
+        @pacman_state = 'A'
     end
     @pacman_state
   end

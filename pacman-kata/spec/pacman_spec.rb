@@ -12,12 +12,18 @@ describe 'Pacman CLI' do
   it 'shows pacman\'s direction based on input' do
     game = Pacman.new
     game.run
-    game.move("left")
 
+    game.move("left")
     expect(game.pacman_state).to eq ">"
 
     game.move("right")
     expect(game.pacman_state).to eq "<"
+
+    game.move("up")
+    expect(game.pacman_state).to eq "V"
+
+    game.move("down")
+    expect(game.pacman_state).to eq "A"
   end
 
   it 'initializes with a 10 by 10 game board populated with pacman and food' do
