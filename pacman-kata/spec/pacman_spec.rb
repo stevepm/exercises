@@ -10,8 +10,8 @@ describe 'Pacman CLI' do
   end
 
   it 'shows pacman\'s direction based on input' do
-    pending
     game = Pacman.new
+    game.run
     game.move("left")
 
     expect(game.pacman_state).to eq ">"
@@ -23,12 +23,14 @@ describe 'Pacman CLI' do
   it 'should return pacman\'s index in the game board' do
     pending
     game = Pacman.new
+    game.run
     expect(game.pacman_location).to eq 5
   end
 
   it 'shows pacman moving to different positions in the array' do
     pending
     game = Pacman.new
+    game.run
     game.move("left")
     expect(game.pacman_location).to eq 4
 
